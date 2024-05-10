@@ -97,7 +97,7 @@ async def delete(event):
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
     uid = list_of_words[1]
-    collection.delete({"uid": uid})
+    collection.delete_all({"uid": uid})
     text = "user {} has been removed".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
 
