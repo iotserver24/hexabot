@@ -17,12 +17,17 @@ url = config.get('default', "MONGO_URI")
 cluster = MongoClient(url)
 db = cluster[DATABASE_NAME]
 HexaDb = db[COLLECTION_NAME]
+
+
 @client.on(events.NewMessage(pattern="(?i)/start"))
 async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
     text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
     await client.send_message(SENDER, text)
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/add"))
 async def add(event):
     sender = await event.get_sender()
@@ -36,6 +41,10 @@ async def add(event):
     collection.insert_one(post_dict)
     text = "details of the player has been inserted!"
     await client.send_message(SENDER, text)
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/list"))
 async def select(event):
     sender = await event.get_sender()
@@ -49,6 +58,17 @@ async def select(event):
         results = collection.find({})
     message = create_message_select_query(results)
     await client.send_message(SENDER, message, parse_mode='html')
+
+
+
+
+
+
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/win"))
 async def update(event):
     sender = await event.get_sender()
@@ -63,6 +83,13 @@ async def update(event):
     collection.update_one({"_id": _id}, {"$set": new_post_dict})
     text = "Product with _id {} correctly updated".format(_id)
     await client.send_message(SENDER, text, parse_mode='html')
+
+
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/remove"))
 async def delete(event):
     sender = await event.get_sender()
@@ -70,9 +97,21 @@ async def delete(event):
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
     uid = list_of_words[1]
-    collection.delete_one({"uid": uid})
+    collection.delete({"uid": uid})
     text = "user {} has been removed".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
+
+
+
+
+           
+
+
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/in"))
 async def select(event):
     sender = await event.get_sender()
@@ -99,4 +138,5 @@ def create_message_select_query(results):
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
         
+
 client.run_until_disconnected()
