@@ -35,7 +35,7 @@ async def add(event):
     uid = list_of_words[1]
     win = int(list_of_words[2])
     team = list_of_words[3]
-    post_dict = {"uid": uid, "win": win, "team": team}
+    post_dict = {"uid": uid, "win": win} #, "team": team}
     collection.insert_one(post_dict)
     text = "details of the player has been inserted!"
     await client.send_message(SENDER, text)
