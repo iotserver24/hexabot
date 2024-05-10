@@ -80,8 +80,8 @@ async def update(event):
     win = int(list_of_words[3])
     team = list_of_words[4]
     new_post_dict = {"uid": uid, "win": win, "team": team}
-    collection.update_one({"_id": _id}, {"$set": new_post_dict})
-    text = "Product with _id {} correctly updated".format(_id)
+    collection.update_one({"win": win}, {"$set": new_post_dict})
+    text = "players with wins {} correctly updated".format(win)
     await client.send_message(SENDER, text, parse_mode='html')
 
 
@@ -97,7 +97,7 @@ async def delete(event):
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
     uid = list_of_words[1]
-    collection.delete_all({"uid": uid})
+    collection.delete_one({"uid": uid})
     text = "user {} has been removed".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
 
