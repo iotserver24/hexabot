@@ -24,7 +24,7 @@ HexaDb = db[COLLECTION_NAME]
 
 
 
-ADMIN_USERNAMES = ["@R3AP3Redits ", "@deadmanakm"]  # Add your admin usernames here
+ADMIN_USERNAMES = ["@R3AP3Redit", "@deadmanakm"]  # Add your admin usernames here
 
 @client.on(events.NewMessage(pattern="(?i)/start"))
 async def start(event):
