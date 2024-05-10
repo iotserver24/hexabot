@@ -97,14 +97,6 @@ def create_message_select_query(results):
         text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
-if __name__ == '__main__':
-    try:
-        print("Initializing Database...")
-        # Define the Database using Database name
-        db = cluster[DATABASE_NAME]
-        # Define collection
-        HexaDb = db[COLLECTION_NAME]
-        print("Bot's engine started. Engine is makinging sound!!!....:nigga nigga ")
-        client.run_until_disconnected()
-    except Exception as error:
-        print('Cause: {}'.format(error))
+        
+
+client.run_until_disconnected()
