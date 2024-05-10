@@ -126,7 +126,7 @@ async def select(event):
         message = create_message_select_query(result)
         await client.send_message(SENDER, message, parse_mode='html')
 
-def create_message_select_query(results, pattern):
+def create_message_select_query(results):
     text = ""
     for res in results:
       #  id = res["_id"]
