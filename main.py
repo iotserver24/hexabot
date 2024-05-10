@@ -137,7 +137,8 @@ def create_message_select_query(results, pattern):
             text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
         elif pattern == "/tlist":
             text += "<b>"+ str(team)+"</b> | " + "</b>\n"
-            
+        else:
+            text += "<b> anish </b> | " + "</b>\n"
         text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
