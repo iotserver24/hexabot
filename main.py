@@ -61,6 +61,23 @@ async def select(event):
 
 
 
+@client.on(events.NewMessage(pattern="(?i)/tlist"))
+async def select(event):
+    sender = await event.get_sender()
+    SENDER = sender.id
+    list_of_words = event.message.text.split(" ")
+    collection = HexaDb
+        results = collection.find({"team": team})
+        results = results.split()[-1]
+       # results = collection.find({})
+    message = create_message_select_query(results)
+    await client.send_message(SENDER, message, parse_mode='html')
+
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/win"))
 async def update(event):
     sender = await event.get_sender()
