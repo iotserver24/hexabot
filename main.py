@@ -21,11 +21,8 @@ HexaDb = db[COLLECTION_NAME]
 async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. pls dont text anything here. this is only for admins. CREATED BY:- R3AP3R editz( @R3AP3Redit )"
+    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
     await client.send_message(SENDER, text)
-
-
-
 @client.on(events.NewMessage(pattern="(?i)/add"))
 async def add(event):
     sender = await event.get_sender()
@@ -35,14 +32,10 @@ async def add(event):
     uid = list_of_words[1]
     win = int(list_of_words[2])
     team = list_of_words[3]
-    post_dict = {"uid": uid, "win": win} #, "team": team}
+    post_dict = {"uid": uid, "win": win, "team": team}
     collection.insert_one(post_dict)
     text = "details of the player has been inserted!"
     await client.send_message(SENDER, text)
-
-
-
-
 @client.on(events.NewMessage(pattern="(?i)/list"))
 async def select(event):
     sender = await event.get_sender()
@@ -56,27 +49,6 @@ async def select(event):
         results = collection.find({})
     message = create_message_select_query(results)
     await client.send_message(SENDER, message, parse_mode='html')
-
-
-
-
-
-#   @client.on(events.NewMessage(pattern="(?i)/tlist"))   
-#      async def select(event):
-       #   sender = await event.get_sender()
-      #    SENDER = sender.id
-     #     list_of_words = event.message.text.split(" ")
-    #       collection = HexaDb
-   #            results = collection.find({"team": team})
-  #     # results = collection.find({})
- #              message = create_message_select_query(results)
-#                await client.send_message(SENDER, message, parse_mode='html')
-
-
-
-
-
-
 @client.on(events.NewMessage(pattern="(?i)/win"))
 async def update(event):
     sender = await event.get_sender()
@@ -91,12 +63,6 @@ async def update(event):
     collection.update_one({"_id": _id}, {"$set": new_post_dict})
     text = "Product with _id {} correctly updated".format(_id)
     await client.send_message(SENDER, text, parse_mode='html')
-
-
-
-
-
-
 @client.on(events.NewMessage(pattern="(?i)/remove"))
 async def delete(event):
     sender = await event.get_sender()
@@ -107,10 +73,6 @@ async def delete(event):
     collection.delete_one({"uid": uid})
     text = "user {} has been removed".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
-
-
-
-
 @client.on(events.NewMessage(pattern="(?i)/in"))
 async def select(event):
     sender = await event.get_sender()
@@ -123,9 +85,8 @@ async def select(event):
         
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
-        message = create_message_select_query(result)
+        message = create_message_select_query(results)
         await client.send_message(SENDER, message, parse_mode='html')
-
 def create_message_select_query(results):
     text = ""
     for res in results:
@@ -133,14 +94,9 @@ def create_message_select_query(results):
         uid = res["uid"]
         win = res["win"]
         team = res["team"]
-     
-            text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
-       
-       
-           
-      #  text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+        text += "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+        #   text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
         
-
 client.run_until_disconnected()
