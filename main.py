@@ -3,7 +3,7 @@ import configparser
 from telethon import TelegramClient, events
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-print("Initializing configuration...")
+printf("Initializing configuration...")
 config = configparser.ConfigParser()
 config.read('config.ini')
 API_ID = config.get('default', 'api_id')
@@ -26,33 +26,25 @@ HexaDb = db[COLLECTION_NAME]
 
 ADMIN_USERNAMES = ["@R3AP3Redit", "@deadmanakm"]  # Add your admin usernames here
 
-@client.on(events.NewMessage(pattern="(?i)/start"))
-async def start(event):
-    sender = await event.get_sender()
-    if sender.username in ADMIN_USERNAMES:
-        # Allow admin to execute the command
-        SENDER = sender.id
-        text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
-        await client.send_message(SENDER, text)
-    else:
-        await client.send_message(SENDER, "Only admins can run this command.")
+#@client.on(events.NewMessage(pattern="(?i)/start"))
+#async def start(event):
+  #  sender = await event.get_sender()
+   # if sender.username in ADMIN_USERNAMES:
+      #  # Allow admin to execute the command
+     #   SENDER = sender.id
+    #    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
+   #     await client.send_message(SENDER, text)
+  #  else:
+ #       await client.send_message(SENDER, "Only admins can run this command.")
 
 # Similarly, modify other command handlers
 
-
-
-
-
-
-
-
-
-#@client.on(events.NewMessage(pattern="(?i)/start"))
-#async def start(event):
-  ##  sender = await event.get_sender()
-   #  SENDER = sender.id
-  #  text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
- #   await client.send_message(SENDER, text)
+@client.on(events.NewMessage(pattern="(?i)/start"))
+async def start(event):
+    sender = await event.get_sender()
+     SENDER = sender.id
+     text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
+    await client.send_message(SENDER, text)
 
 
 
