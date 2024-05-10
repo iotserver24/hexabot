@@ -68,6 +68,8 @@ async def select(event):
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
         results = collection.find({"team": team})
+        print(results)
+        print(typre(results))
         results = results.split()[-1]
        # results = collection.find({})
     message = create_message_select_query(results)
