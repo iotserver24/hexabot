@@ -54,23 +54,23 @@ async def select(event):
         results = collection.find({"team": team})
     else:
         results = collection.find({})
-    message = create_message_select_query(results, pattern)
+    message = create_message_select_query(results)
     await client.send_message(SENDER, message, parse_mode='html')
 
 
 
 
 
-@client.on(events.NewMessage(pattern="(?i)/tlist"))
-async def select(event):
-    sender = await event.get_sender()
-    SENDER = sender.id
-    list_of_words = event.message.text.split(" ")
-    collection = HexaDb
-        results = collection.find({"team": team})
-       # results = collection.find({})
-    message = create_message_select_query(results, pattern)
-    await client.send_message(SENDER, message, parse_mode='html')
+#   @client.on(events.NewMessage(pattern="(?i)/tlist"))   
+#      async def select(event):
+       #   sender = await event.get_sender()
+      #    SENDER = sender.id
+     #     list_of_words = event.message.text.split(" ")
+    #       collection = HexaDb
+   #            results = collection.find({"team": team})
+  #     # results = collection.find({})
+ #              message = create_message_select_query(results)
+#                await client.send_message(SENDER, message, parse_mode='html')
 
 
 
@@ -123,7 +123,7 @@ async def select(event):
         
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
-        message = create_message_select_query(result, patterns)
+        message = create_message_select_query(result)
         await client.send_message(SENDER, message, parse_mode='html')
 
 def create_message_select_query(results, pattern):
@@ -133,13 +133,12 @@ def create_message_select_query(results, pattern):
         uid = res["uid"]
         win = res["win"]
         team = res["team"]
-        if pattern == "/list" or pattern == "/in":
+     
             text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
-        elif pattern == "/tlist":
-            text += "<b>"+ str(team)+"</b> | " + "</b>\n"
-        else:
-            text += "<b> anish </b> | " + "</b>\n"
-        text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+       
+       
+           
+      #  text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
         
