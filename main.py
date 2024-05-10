@@ -54,7 +54,7 @@ async def select(event):
         results = collection.find({"team": team})
     else:
         results = collection.find({})
-    message = create_message_select_query(results)
+    message = create_message_select_query(results, pattern)
     await client.send_message(SENDER, message, parse_mode='html')
 
 
@@ -68,11 +68,8 @@ async def select(event):
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
         results = collection.find({"team": team})
-        print(results)
-        print(type(results))
-        results = results.split()[-1]
        # results = collection.find({})
-    message = create_message_select_query(results)
+    message = create_message_select_query(results, pattern)
     await client.send_message(SENDER, message, parse_mode='html')
 
 
@@ -126,15 +123,21 @@ async def select(event):
         
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
-        message = create_message_select_query(results)
+        message = create_message_select_query(result, patterns)
         await client.send_message(SENDER, message, parse_mode='html')
-def create_message_select_query(results):
+
+def create_message_select_query(results, pattern):
     text = ""
     for res in results:
       #  id = res["_id"]
         uid = res["uid"]
         win = res["win"]
         team = res["team"]
+        if pattern == "/list" or pattern == "/in":
+            text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+        elif pattern == "/tlist":
+            text += "<b>"+ str(team)+"</b> | " + "</b>\n"
+            
         text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
     message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
