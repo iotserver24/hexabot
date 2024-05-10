@@ -21,8 +21,11 @@ HexaDb = db[COLLECTION_NAME]
 async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
+    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. pls dont text anything here. this is only for admins. CREATED BY:- R3AP3R editz( @R3AP3Redit )"
     await client.send_message(SENDER, text)
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/add"))
 async def add(event):
     sender = await event.get_sender()
@@ -36,6 +39,10 @@ async def add(event):
     collection.insert_one(post_dict)
     text = "details of the player has been inserted!"
     await client.send_message(SENDER, text)
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/list"))
 async def select(event):
     sender = await event.get_sender()
@@ -49,6 +56,11 @@ async def select(event):
         results = collection.find({})
     message = create_message_select_query(results)
     await client.send_message(SENDER, message, parse_mode='html')
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/win"))
 async def update(event):
     sender = await event.get_sender()
@@ -63,6 +75,12 @@ async def update(event):
     collection.update_one({"_id": _id}, {"$set": new_post_dict})
     text = "Product with _id {} correctly updated".format(_id)
     await client.send_message(SENDER, text, parse_mode='html')
+
+
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/remove"))
 async def delete(event):
     sender = await event.get_sender()
@@ -73,6 +91,10 @@ async def delete(event):
     collection.delete_one({"uid": uid})
     text = "user {} has been removed".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
+
+
+
+
 @client.on(events.NewMessage(pattern="(?i)/in"))
 async def select(event):
     sender = await event.get_sender()
@@ -90,7 +112,7 @@ async def select(event):
 def create_message_select_query(results):
     text = ""
     for res in results:
-        id = res["_id"]
+      #  id = res["_id"]
         uid = res["uid"]
         win = res["win"]
         team = res["team"]
