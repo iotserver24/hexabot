@@ -69,7 +69,7 @@ async def select(event):
     collection = HexaDb
         results = collection.find({"team": team})
         print(results)
-        print(typre(results))
+        print(type(results))
         results = results.split()[-1]
        # results = collection.find({})
     message = create_message_select_query(results)
