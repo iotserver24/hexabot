@@ -43,20 +43,20 @@ async def add(event):
     await client.send_message(SENDER, text)
 
 
-@client.on(events.NewMessage(pattern="(?i)/aadd"))
-async def aadd(event):
-    sender = await event.get_sender()
-    SENDER = sender.id
-    list_of_words = event.message.text.split(" ")
-    collection = HexaDb
-    uid = list_of_words[1]
-    win = int(list_of_words[2])
-        team ='admin'
+#@client.on(events.NewMessage(pattern="(?i)/aadd"))
+#async def aadd(event):
+ #   sender = await event.get_sender()
+  #  SENDER = sender.id
+   # list_of_words = event.message.text.split(" ")
+#    collection = HexaDb
+#    uid = list_of_words[1]
+#    win = int(list_of_words[2])
+#        team ='admin'
     
-    post_dict = {"uid": uid, "win": win, "team": team}
-    collection.insert_one(post_dict)
-    text = "details of the admins has been inserted!"
-    await client.send_message(SENDER, text)
+ #   post_dict = {"uid": uid, "win": win, "team": team}
+ #   collection.insert_one(post_dict)
+ #   text = "details of the admins has been inserted!"
+ #   await client.send_message(SENDER, text)
 
 
 
