@@ -51,7 +51,7 @@ async def aadd(event):
     collection = HexaDb
     uid = list_of_words[1]
     win = int(list_of_words[2])
-        team ="admin"
+        team ='admin'
     
     post_dict = {"uid": uid, "win": win, "team": team}
     collection.insert_one(post_dict)
