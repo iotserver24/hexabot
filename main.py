@@ -55,7 +55,8 @@ async def add(event):
 
 @client.on(events.NewMessage(pattern="(?i)/list"))
 async def select(event):
-    sender = await event.get_sender()
+    SENDER = event.sender_id
+    #sender = await event.get_sender()
     SENDER = sender.id
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
