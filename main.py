@@ -3,6 +3,7 @@ import configparser
 from telethon import TelegramClient, events
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from telethon import types #line added
 print("Initializing configuration...")
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -43,20 +44,7 @@ async def add(event):
     await client.send_message(SENDER, text)
 
 
-#@client.on(events.NewMessage(pattern="(?i)/aadd"))
-#async def aadd(event):
- #   sender = await event.get_sender()
-  #  SENDER = sender.id
-   # list_of_words = event.message.text.split(" ")
-#    collection = HexaDb
-#    uid = list_of_words[1]
-#    win = int(list_of_words[2])
-#        team ='admin'
-    
- #   post_dict = {"uid": uid, "win": win, "team": team}
- #   collection.insert_one(post_dict)
- #   text = "details of the admins has been inserted!"
- #   await client.send_message(SENDER, text)
+
 
 
 
@@ -72,10 +60,12 @@ async def select(event):
     else:
         results = collection.find({})
     message = create_message_select_query(results)
-    await client.send_message(SENDER, message, parse_mode='html')
-
-
-
+    
+    # Get the chat ID of the group where the message was sent from
+    chat_id = event.chat_id  #line added
+    
+    # Send the message to the group chat
+    await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
 
 
 
