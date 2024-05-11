@@ -60,7 +60,6 @@ async def add(event):
 
 
 
-
 @client.on(events.NewMessage(pattern="(?i)/list"))
 async def select(event):
     sender = await event.get_sender()
@@ -74,6 +73,8 @@ async def select(event):
         results = collection.find({})
     message = create_message_select_query(results)
     await client.send_message(SENDER, message, parse_mode='html')
+
+
 
 
 
