@@ -111,7 +111,7 @@ async def delete(event):
     collection = HexaDb
     uid = list_of_words[1]
     collection.delete_one({"uid": uid})
-    text = "user {} has been removed".format(uid)
+    text = "player {} has been knocked out".format(uid)
     await client.send_message(SENDER, text, parse_mode='html')
 
 
