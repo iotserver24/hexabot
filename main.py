@@ -3,6 +3,10 @@ import configparser
 from telethon import TelegramClient, events
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from telethon import types     
+
+
+
 print("Initializing configuration...")
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -57,7 +61,10 @@ async def select(event):
     else:
         results = collection.find({})
     message = create_message_select_query(results)
-    await client.send_message(SENDER, message, parse_mode='html')
+
+ # Get the chat ID of the group where the message was sent from
+    chat_id = event.chat_id  #line added
+    await client.send_message(chat_id,SENDER, message, parse_mode='html')
 
 
 
