@@ -64,7 +64,7 @@ async def select(event):
         team = list_of_words[1]
         results = collection.find({"team": team})
     else:
-        results = collection.find({})
+          results = collection.find({})
     message = create_message_select_query(results)
       # Get the chat ID of the group where the message was sent from
     chat_id = event.chat_id  #line added
