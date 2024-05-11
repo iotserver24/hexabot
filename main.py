@@ -29,7 +29,7 @@ HexaDb = db[COLLECTION_NAME]
 async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
+    text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz ( @R3AP3Redit )"
     await client.send_message(SENDER, text)
 
 
@@ -45,8 +45,8 @@ async def add(event):
     team = list_of_words[3]
     post_dict = {"uid": uid, "win": win, "team": team}
     collection.insert_one(post_dict)
-    text = "details of the player has been inserted!"
-   ##   text = "user {} has been added".format(uid)
+  #  text = "details of the player has been inserted!"
+    text = "user {} has been added".format(uid)
     await client.send_message(SENDER, text)
 
 
