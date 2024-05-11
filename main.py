@@ -53,30 +53,26 @@ async def add(event):
 
 
 
-@client.on(events.NewMessage(pattern="(?i)/list"))
+@client.on(events.NewMessage(pattern="(?i)/list(?: (.*))?$"))
 async def select(event):
-    #SENDER = event.sender_id
     sender = await event.get_sender()
     SENDER = sender.id
-    list_of_words = event.message.text.split(" ")
-    collection = HexaDb
-    if len(list_of_words) > 1:
-        team = list_of_words[1]
-        results = collection.find({"team": team})
-    else:
-          results = collection.find({})
-    message = create_message_select_query(results)
-      # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
     
-    # Send the message to the group chat
-    await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
-   # await client.send_message(SENDER, message, parse_mode='html')
-
-
-
-
-
+    team_name = event.pattern_match.group(1)
+    collection = HexaDb
+    
+    if team_name:
+        results = collection.find({"team": team_name})
+    else:
+        results = collection.find({})
+    
+    message = create_message_select_query(results)
+    
+    try:
+        chat_id = await event.get_input_chat()
+        await client.send_message(chat_id, message, parse_mode='html')
+    except Exception as e:
+        print(f"Error sending message: {e}")
 
 
 
