@@ -89,7 +89,7 @@ async def addl(event):
         message = create_message_select_query(results)
         await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
     else:
-          text = "please {} proivide your admin code to give the list of participats you added".format(SENDER) 
+          text = "please proivide your admin code to give the list of participats you added"
   
           # Get the chat ID of the group where the message was sent from
           chat_id = event.chat_id  #line added
