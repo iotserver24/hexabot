@@ -45,11 +45,10 @@ async def add(event):
     team = list_of_words[3]
     post_dict = {"uid": uid, "win": win, "team": team}
     collection.insert_one(post_dict)
-  #  text = "details of the player has been inserted!"
-     chat_id = event.chat_id  #line added
+
     text = "deatils of the player {} has been added".format(uid)
     
-    await client.send_message(chat_id, text)  #SENDER
+    await client.send_message(SENDER, text)  #SENDER
 
 
 
