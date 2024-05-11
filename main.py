@@ -75,6 +75,31 @@ async def select(event):
 
 
 
+@client.on(events.NewMessage(pattern="(?i)/addl"))
+async def addl(event):
+    sender = await event.get_sender()
+    SENDER = sender.id
+    list_of_words = event.message.text.split(" ")
+    collection = HexaDb
+    if len(list_of_words) > 1:
+        team = list_of_words[1]
+        results = collection.find({"win": win})
+        chat_id = event.chat_id  #line added
+         # Send the message to the group chat
+        message = create_message_select_query(results)
+        await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
+    else:
+          text = "please {} proivide your admin code to give the list of participats you added".format(SENDER) 
+  
+          # Get the chat ID of the group where the message was sent from
+          chat_id = event.chat_id  #line added
+    
+           # Send the message to the group chat
+         await client.send_message(chat_id, text, parse_mode='html')   #was sender.id now chat_id
+         # await client.send_message(SENDER, message, parse_mode='html')
+
+
+
 
 
 
