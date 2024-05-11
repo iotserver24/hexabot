@@ -3,7 +3,9 @@ import configparser
 from telethon import TelegramClient, events
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from telethon import types     
+from telethon import types      
+
+
 
 
 
@@ -28,7 +30,6 @@ async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
     text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
-     
     await client.send_message(SENDER, text)
 
 
@@ -45,9 +46,8 @@ async def add(event):
     post_dict = {"uid": uid, "win": win, "team": team}
     collection.insert_one(post_dict)
     text = "details of the player has been inserted!"
-     # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
-    await client.send_message(chat_id, text)
+   ##   text = "user {} has been added".format(uid)
+    await client.send_message(SENDER, text)
 
 
 
@@ -63,12 +63,13 @@ async def select(event):
         results = collection.find({"team": team})
     else:
         results = collection.find({})
-        
-    message = create_message_select_query( results)
-
- # Get the chat ID of the group where the message was sent from
+    message = create_message_select_query(results)
+      # Get the chat ID of the group where the message was sent from
     chat_id = event.chat_id  #line added
-    await client.send_message( chat_id, message, parse_mode='html')
+    
+    # Send the message to the group chat
+    await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
+   # await client.send_message(SENDER, message, parse_mode='html')
 
 
 
@@ -93,9 +94,7 @@ async def update(event):
     new_post_dict = {"uid": uid, "win": win, "team": team}
     collection.update_one({"win": win}, {"$set": new_post_dict})
     text = "players with wins {} correctly updated".format(win)
-     # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
-    await client.send_message( chat_id, text, parse_mode='html')
+    await client.send_message(SENDER, text, parse_mode='html')
 
 
 
@@ -112,9 +111,7 @@ async def delete(event):
     uid = list_of_words[1]
     collection.delete_one({"uid": uid})
     text = "user {} has been removed".format(uid)
-     # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
-    await client.send_message( chat_id, text, parse_mode='html')
+    await client.send_message(SENDER, text, parse_mode='html')
 
 
 
@@ -140,15 +137,14 @@ async def select(event):
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
         message = create_message_select_query(results)
-         # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
-        await client.send_message(chat_id, message, parse_mode='html')
+        await client.send_message(SENDER, message, parse_mode='html')
+
 
 
 
 
 def create_message_select_query(results):
-    text = "" 
+    text = ""
     for res in results:
       #  id = res["_id"]
         uid = res["uid"]
@@ -156,7 +152,7 @@ def create_message_select_query(results):
         team = res["team"]
         text += "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
         #   text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
-    message = "<b>Received 📖 </b> details are given below:\n\n"+text
+    message = "<b>Received 📖 </b> Information about participants:\n\n"+text
     return message
         
 
