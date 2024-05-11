@@ -149,7 +149,7 @@ async def select(event):
 
 
 def create_message_select_query(results):
-    text = "results" #only added results word
+    text = "" 
     for res in results:
       #  id = res["_id"]
         uid = res["uid"]
