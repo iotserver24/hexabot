@@ -64,7 +64,7 @@ async def select(event):
 
  # Get the chat ID of the group where the message was sent from
     chat_id = event.chat_id  #line added
-    await client.send_message(chat_id,SENDER, message, parse_mode='html')
+    await client.send_message( chat_id, message, parse_mode='html')
 
 
 
