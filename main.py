@@ -28,9 +28,8 @@ async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
     text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz"
-      # Get the chat ID of the group where the message was sent from
-    chat_id = event.chat_id  #line added
-    await client.send_message( SENDER, text)
+     
+    await client.send_message(SENDER, text)
 
 
 
