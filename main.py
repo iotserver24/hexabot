@@ -74,23 +74,39 @@ async def select(event):
     except Exception as e:
         print(f"Error sending message: {e}")
 
-
-
-
 @client.on(events.NewMessage(pattern=r"/adl (\d+)"))
 async def adl(event):
-    win = int(event.pattern_match.group(1))
+    print("Adl command triggered")
+    win_number = int(event.pattern_match.group(1))
+    print(f"Win number: {win_number}")
+    
     collection = HexaDb
+    results = collection.find({"win": win_number})
+    print(f"Results: {results}")
     
-    results = collection.find({"win": win})
-    
-    message = create_message_adl_query(results)
+    message = create_message_adl_query(results, win_number)  # Pass win_number as an argument
+    print(f"Message: {message}")
     
     try:
         chat_id = await event.get_input_chat()
         await client.send_message(chat_id, message, parse_mode='html')
     except Exception as e:
         print(f"Error sending message: {e}")
+
+def create_message_adl_query(results, win_number):  # Add win_number as a parameter
+    text = ""
+    for res in results:
+        uid = res["uid"]
+        team = res["team"]
+        text += f"<b>{uid}</b> | <b>{team}</b>\n"
+        
+    if text:
+        message = f"<b>Participants with {win_number} wins:</b>\n\n" + text
+    else:
+        message = f"No participants found with {win_number} wins."
+        
+    return message
+
 
 
 
@@ -180,20 +196,6 @@ def create_message_select_query(results):
     message = "<b>Received 📖</b> Information about participants:\n\n" + text
     return message
 
-
-def create_message_adl_query(results):
-    text = ""
-    for res in results:
-        uid = res["uid"]
-        team = res["team"]
-        text += f"<b>{uid}</b> | <b>{team}</b>\n"
-        
-    if text:
-        message = f"<b>Participants who were added by admin with admin code: {win_number} are:</b>\n\n" + text
-    else:
-        message = f"No participants found who were added by admin with admin code {win_number} ."
-        
-    return message
 
 
 # def create_message_select_query(results):
