@@ -136,12 +136,12 @@ async def update(event):
   #  _id = ObjectId(list_of_words[1])
     uid = list_of_words[1]
   #     win = int(list_of_words[2])
- #   chat_id = await event.get_input_chat()
+    chat_id = await event.get_input_chat()
     team = list_of_words[2]
     new_post_dict = {"uid": uid, "team": team}
     collection.update_one({"team": team}, {"$set": new_post_dict})
     text = "players's team correctly updated to {}".format(team)
-    await client.send_message(SENDER, text, parse_mode='html')
+    await client.send_message(chat_id, text, parse_mode='html')
 
 
 
