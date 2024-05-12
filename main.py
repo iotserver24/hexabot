@@ -142,18 +142,34 @@ async def select(event):
 
 
 
-
 def create_message_select_query(results):
     text = ""
     for res in results:
-      #  id = res["_id"]
         uid = res["uid"]
-        win = res["win"]
-        team = res["team"]
-        text += "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
-        #   text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
-    message = "<b>Received 📖 </b> Information about participants:\n\n"+text
+        if "win" in res:  # Check if "win" key exists in the dictionary
+            win = res["win"]
+            team = res["team"]
+            text += f"<b>{uid}</b> | <b>{win}</b> | <b>{team}</b>\n"
+        else:
+            team = res["team"]
+            text += f"<b>{uid}</b> | Wins: N/A | <b>{team}</b>\n"
+    message = "<b>Received 📖</b> Information about participants:\n\n" + text
     return message
+
+
+
+
+# def create_message_select_query(results):
+#   text = ""
+#    for res in results:
+#      #  id = res["_id"]
+#        uid = res["uid"]
+#        win = res["win"]
+#        team = res["team"]
+#        text += "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+#        #   text += "<b>"+ str(id) +"</b> | " + "<b>"+ str(uid) +"</b> | " + "<b>"+ str(win)+"</b> | " + "<b>"+ str(team)+"</b> | " + "</b>\n"
+#    message = "<b>Received 📖 </b> Information about participants:\n\n"+text
+#    return message
         
 
 client.run_until_disconnected()
