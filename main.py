@@ -148,14 +148,18 @@ def create_message_select_query(results):
         uid = res["uid"]
         if "win" in res:  # Check if "win" key exists in the dictionary
             win = res["win"]
-            team = res["team"]
-            text += f"<b>{uid}</b> | <b>{win}</b> | <b>{team}</b>\n"
         else:
+            win = "N/A"
+        
+        if "team" in res:  # Check if "team" key exists in the dictionary
             team = res["team"]
-            text += f"<b>{uid}</b> | Wins: N/A | <b>{team}</b>\n"
+        else:
+            team = "N/A"
+        
+        text += f"<b>{uid}</b> | <b>{win}</b> | <b>{team}</b>\n"
+        
     message = "<b>Received 📖</b> Information about participants:\n\n" + text
     return message
-
 
 
 
