@@ -50,7 +50,7 @@ async def add(event):
 
     text = "deatils of the player {} has been added".format(uid)
     
-    await client.send_message( SENDER, text)  #SENDER
+    await client.send_message(SENDER, text)  #SENDER
 
 
 
@@ -72,7 +72,7 @@ async def select(event):
     
     try:
         chat_id = await event.get_input_chat()
-        await client.send_message( chat_id, message, parse_mode='html')
+        await client.send_message(chat_id, message, parse_mode='html')
     except Exception as e:
         print(f"Error sending message: {e}")
 
@@ -94,7 +94,7 @@ async def adl(event):
     
     try:
         chat_id = await event.get_input_chat()
-        await client.send_message( chat_id, message, parse_mode='html')
+        await client.send_message(chat_id, message, parse_mode='html')
     except Exception as e:
         print(f"Error sending message: {e}")
 
@@ -141,7 +141,7 @@ async def update(event):
     new_post_dict = {"uid": uid, "team": team}
     collection.update_one({"team": team}, {"$set": new_post_dict})
     text = "players's team correctly updated to {}".format(team)
-    await client.send_message( chat_id, text, parse_mode='html')
+    await client.send_message(chat_id, text, parse_mode='html')
 
 
 
@@ -159,7 +159,7 @@ async def delete(event):
     uid = list_of_words[1]
     collection.delete_one({"uid": uid})
     text = "player {} has been knocked out".format(uid)
-    await client.send_message( chat_id, text, parse_mode='html')
+    await client.send_message(SENDER, text, parse_mode='html')
 
 
 
@@ -185,7 +185,7 @@ async def select(event):
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
         message = create_message_select_query(results)
-        await client.send_message( chat_id, message, parse_mode='html')
+        await client.send_message(SENDER, message, parse_mode='html')
 
 
 
