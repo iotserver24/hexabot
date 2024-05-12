@@ -74,6 +74,9 @@ async def select(event):
     except Exception as e:
         print(f"Error sending message: {e}")
 
+
+
+
 @client.on(events.NewMessage(pattern=r"/adl (\d+)"))
 async def adl(event):
     print("Adl command triggered")
@@ -93,17 +96,23 @@ async def adl(event):
     except Exception as e:
         print(f"Error sending message: {e}")
 
+
+
+
+
 def create_message_adl_query(results, win_number):  # Add win_number as a parameter
     text = ""
     for res in results:
         uid = res["uid"]
         team = res["team"]
         text += f"<b>{uid}</b> | <b>{team}</b>\n"
+
+    
         
     if text:
-        message = f"<b>Participants with {win_number} wins:</b>\n\n" + text
+        message = f"<b>players addeed by admin with admin code:  {win_number} are:</b>\n\n" + text
     else:
-        message = f"No participants found with {win_number} wins."
+        message = f"No addeed by admin with admin code:  {win_number} ."
         
     return message
 
