@@ -79,10 +79,10 @@ async def select(event):
 
 @client.on(events.NewMessage(pattern=r"/adl (\d+)"))
 async def adl(event):
-    win_number = int(event.pattern_match.group(1))
+    win = int(event.pattern_match.group(1))
     collection = HexaDb
     
-    results = collection.find({"win": win_number})
+    results = collection.find({"win": win})
     
     message = create_message_adl_query(results)
     
