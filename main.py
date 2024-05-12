@@ -77,7 +77,7 @@ async def select(event):
 
 
 
-@client.on(events.NewMessage(pattern="(?i)/list"))
+@client.on(events.NewMessage(pattern="(?i)/adl"))
 async def select(event):
     sender = await event.get_sender()
     SENDER = sender.id
