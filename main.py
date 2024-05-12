@@ -77,6 +77,22 @@ async def select(event):
 
 
 
+@client.on(events.NewMessage(pattern=r"/adl (\d+)"))
+async def adl(event):
+    win_number = int(event.pattern_match.group(1))
+    collection = HexaDb
+    
+    results = collection.find({"win": win_number})
+    
+    message = create_message_adl_query(results)
+    
+    try:
+        chat_id = await event.get_input_chat()
+        await client.send_message(chat_id, message, parse_mode='html')
+    except Exception as e:
+        print(f"Error sending message: {e}")
+
+
 
 
 
@@ -164,6 +180,20 @@ def create_message_select_query(results):
     message = "<b>Received 📖</b> Information about participants:\n\n" + text
     return message
 
+
+def create_message_adl_query(results):
+    text = ""
+    for res in results:
+        uid = res["uid"]
+        team = res["team"]
+        text += f"<b>{uid}</b> | <b>{team}</b>\n"
+        
+    if text:
+        message = f"<b>Participants who were added by admin with admin code: {win_number} are:</b>\n\n" + text
+    else:
+        message = f"No participants found who were added by admin with admin code {win_number} ."
+        
+    return message
 
 
 # def create_message_select_query(results):
