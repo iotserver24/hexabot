@@ -75,6 +75,33 @@ async def select(event):
 
 
 
+@client.on(events.NewMessage(pattern="(?i)/list"))
+async def select(event):
+    sender = await event.get_sender()
+    SENDER = sender.id
+    list_of_words = event.message.text.split(" ")
+    collection = HexaDb
+   
+        win = list_of_words[1]
+        results = collection.find({"win": win})
+   
+    message = create_message_select_query(results)
+    
+    # Get the chat ID of the group where the message was sent from
+    chat_id = event.chat_id  #line added
+    
+    # Send the message to the group chat
+    await client.send_message(chat_id, message, parse_mode='html')   #was sender.id now chat_id
+
+
+
+
+
+
+
+
+
+
 
 
 
