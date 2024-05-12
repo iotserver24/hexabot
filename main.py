@@ -29,7 +29,7 @@ HexaDb = db[COLLECTION_NAME]
 async def start(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    chat_id = await event.get_input_chat()
+
     text = "hi i am Hexa details. A bot to store datas of tournament of Hexa battle. CREATED BY:- R3AP3R editz ( @R3AP3Redit )"
     await client.send_message(SENDER, text)
 
@@ -39,7 +39,7 @@ async def start(event):
 async def add(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    chat_id = await event.get_input_chat()
+  #  chat_id = await event.get_input_chat()
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
     uid = list_of_words[1]
@@ -136,12 +136,12 @@ async def update(event):
   #  _id = ObjectId(list_of_words[1])
     uid = list_of_words[1]
   #     win = int(list_of_words[2])
-    chat_id = await event.get_input_chat()
+ #   chat_id = await event.get_input_chat()
     team = list_of_words[2]
     new_post_dict = {"uid": uid, "team": team}
     collection.update_one({"team": team}, {"$set": new_post_dict})
     text = "players's team correctly updated to {}".format(team)
-    await client.send_message(chat_id, text, parse_mode='html')
+    await client.send_message(SENDER, text, parse_mode='html')
 
 
 
@@ -153,7 +153,7 @@ async def update(event):
 async def delete(event):
     sender = await event.get_sender()
     SENDER = sender.id
-    chat_id = await event.get_input_chat()
+   # chat_id = await event.get_input_chat()
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
     uid = list_of_words[1]
@@ -181,7 +181,7 @@ async def select(event):
     if len(list_of_words) > 1:
         field = list_of_words[1]
         values_to_check = list_of_words[2:]
-         chat_id = await event.get_input_chat()
+    #     chat_id = await event.get_input_chat()
         params = {field: {"$in": values_to_check}}
         results = collection.find(params)
         message = create_message_select_query(results)
