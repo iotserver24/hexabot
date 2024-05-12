@@ -131,13 +131,13 @@ async def update(event):
     SENDER = sender.id
     list_of_words = event.message.text.split(" ")
     collection = HexaDb
-    _id = ObjectId(list_of_words[1])
-    uid = list_of_words[2]
-    win = int(list_of_words[3])
-    team = list_of_words[4]
-    new_post_dict = {"uid": uid, "win": win, "team": team}
-    collection.update_one({"win": win}, {"$set": new_post_dict})
-    text = "players with wins {} correctly updated".format(win)
+  #  _id = ObjectId(list_of_words[1])
+    uid = list_of_words[1]
+  #     win = int(list_of_words[2])
+    team = list_of_words[2]
+    new_post_dict = {"uid": uid, "team": team}
+    collection.update_one({"team": team}, {"$set": new_post_dict})
+    text = "players's team correctly updated to {}".format(team)
     await client.send_message(SENDER, text, parse_mode='html')
 
 
